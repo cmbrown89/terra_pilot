@@ -9,4 +9,4 @@ RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable \
     && apt-get install -y gdal-bin libsm6 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY bin2tif.py
+COPY bin2tif.py .
