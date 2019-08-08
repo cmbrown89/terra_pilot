@@ -1,12 +1,33 @@
-FROM terraref/terrautils:1.3
-MAINTAINER Max Burnette <mburnet2@illinois.edu>
-# Install any programs needed
+FROM terraref/terrautils:1.5
+LABEL maintainer="Chris Schnaufer <schnaufer@email.arizona.edu>"
+
+RUN useradd -u 49044 extractor \
+    && mkdir /home/extractor \
+    && mkdir /home/extractor/sites
+
+RUN chown -R extractor /home/extractor \
+    && chgrp -R extractor /home/extractor 
+
 RUN apt-get update
-RUN apt-get install -y python3-pip
-RUN pip3 install opencv-python
-RUN pip install terraref-stereo-rgb
-RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable \
-    && apt-get -q -y update \
-    && apt-get install -y gdal-bin libsm6 \
-    && rm -rf /var/lib/apt/lists/*
-COPY tools /tools
+
+RUN apt-get install libgdal-dev \
+        python-gdal \
+        python-tk
+
+RUN pip install --upgrade pip 
+
+RUN pip install -U numpy && \
+    pip install -U pyclowder && \
+    pip install -U laspy && \
+    pip install gdal  && \
+    pip install terraref_stereo_rgb && \
+    pip install terrautils
+
+# command to run when starting docker
+COPY bin2tif.py /home/extractor/
+COPY sensors /home/extractor/sensors
+
+WORKDIR /home/extractor
+ENTRYPOINT ["/home/extractor/bin2tif.py"]
+RUN ["chmod", "+x", "/home/extractor/bin2tif.py"]
+CMD ["", "", ""]
