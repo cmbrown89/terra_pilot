@@ -30,4 +30,3 @@ COPY sensors /home/extractor/sensors
 WORKDIR /home/extractor
 ENTRYPOINT ["/home/extractor/bin2tif.py"]
 RUN ["chmod", "+x", "/home/extractor/bin2tif.py"]
-CMD ["", "", ""]
