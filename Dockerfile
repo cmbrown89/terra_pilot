@@ -24,17 +24,10 @@ RUN pip install -U numpy && \
     pip install terrautils
 
 # command to run when starting docker
-#COPY bin2tif.py /home/extractor/
-#COPY sensors /home/extractor/sensors
-
-ENV BINPATH /usr/bin
-ENV LC_ALL C
-
-ADD bin2tif.py $BINPATH
-ADD sensors $BINPATH 
-RUN chmod +x $BINPATH/bin2tif.py
+COPY bin2tif.py /home/clowder/
+COPY sensors /home/clowder/
+RUN chmod +x /home/clowder/bin2tif.py
 
 #WORKDIR /home/extractor
-ENTRYPOINT ["bin2tif.py"]
-#RUN ["chmod", "+x", "/home/extractor/bin2tif.py"]
+ENTRYPOINT ["/home/clowder/bin2tif.py"]
 CMD ["", "", ""]
