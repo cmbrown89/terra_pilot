@@ -1,12 +1,12 @@
 FROM terraref/terrautils:1.5
 LABEL maintainer="Chris Schnaufer <schnaufer@email.arizona.edu>"
 
-#RUN useradd -u 49044 extractor \
-#    && mkdir /home/extractor \
-#    && mkdir /home/extractor/sites
+RUN useradd -u 49044 extractor \
+    && mkdir /home/extractor \
+    && mkdir /home/extractor/sites
 
-#RUN chown -R extractor /home/extractor \
-#    && chgrp -R extractor /home/extractor 
+RUN chown -R extractor /home/extractor \
+    && chgrp -R extractor /home/extractor 
 
 RUN apt-get update
 
@@ -24,9 +24,10 @@ RUN pip install -U numpy && \
     pip install terrautils
 
 # command to run when starting docker
-COPY bin2tif.py /home/clowder/
-COPY sensors /home/clowder/
-RUN chmod +x /home/clowder/bin2tif.py
+COPY bin2tif.py /home/extractor/
+COPY sensors /home/extractor/sensors
+RUN chmod +x /home/extractor/bin2tif.py
 
-#WORKDIR /home/extractor
-ENTRYPOINT ["/home/clowder/bin2tif.py"]
+WORKDIR /home/extractor
+ENTRYPOINT ["/home/extractor/bin2tif.py"]
+CMD ["", "", ""]
