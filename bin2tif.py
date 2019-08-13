@@ -25,8 +25,7 @@ terrautils.betydb.BETYDB_EXPERIMENTS = {
         } } ]
     }
 
-terrautils.lemnatec.SENSOR_METADATA_CACHE = os.getcwd()
-
+terrautils.lemnatec.SENSOR_METADATA_CACHE = os.path.dirname(os.path.realpath(__file__))
 
 def check_parameters():
     """Function to check that the parameters passed in appear to be OK
