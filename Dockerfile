@@ -30,4 +30,3 @@ RUN chmod +x /home/clowder/bin2tif.py
 
 #WORKDIR /home/extractor
 ENTRYPOINT ["/home/clowder/bin2tif.py"]
-CMD ["", "", ""]
